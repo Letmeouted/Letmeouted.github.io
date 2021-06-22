@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Eslint and pm2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前端工程化之代码规范化及前端自动化pm2ESLint基本概念1234567891011121314151617181920212223242526272829303132333435363738394041424344454647官网:	https:&#x2F;&#x2F;eslint.org&#x2F;中文网址:	http:&#x2F;&#x2F;eslint.cn&#x2F;基本概念:	jav">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eslint and pm2">
+<meta property="og:url" content="http://example.com/2021/06/22/Eslint%20and%20pm2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前端工程化之代码规范化及前端自动化pm2ESLint基本概念1234567891011121314151617181920212223242526272829303132333435363738394041424344454647官网:	https:&#x2F;&#x2F;eslint.org&#x2F;中文网址:	http:&#x2F;&#x2F;eslint.cn&#x2F;基本概念:	jav">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-22T14:36:14.118Z">
+<meta property="article:modified_time" content="2021-06-22T14:41:26.792Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Eslint and pm2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/06/22/Eslint%20and%20pm2/" class="article-date">
+  <time class="dt-published" datetime="2021-06-22T14:36:14.118Z" itemprop="datePublished">2021-06-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Eslint and pm2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="前端工程化之代码规范化及前端自动化pm2"><a href="#前端工程化之代码规范化及前端自动化pm2" class="headerlink" title="前端工程化之代码规范化及前端自动化pm2"></a>前端工程化之代码规范化及前端自动化pm2</h2><h3 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">官网:</span><br><span class="line">	https:&#x2F;&#x2F;eslint.org&#x2F;</span><br><span class="line"></span><br><span class="line">中文网址:</span><br><span class="line">	http:&#x2F;&#x2F;eslint.cn&#x2F;</span><br><span class="line"></span><br><span class="line">基本概念:</span><br><span class="line">	javascript代码检测工具，帮助我们统一团队的代码风格</span><br><span class="line">	</span><br><span class="line">优势:</span><br><span class="line">	1、内置很多检查规则，同时支持自定义规则</span><br><span class="line">	</span><br><span class="line">	2、NodeJS开发的，方便安装</span><br><span class="line">	</span><br><span class="line">可配置的信息:</span><br><span class="line">	Environments - 指定脚本的运行环境。每种环境都有一组特定的预定义全局变量。</span><br><span class="line">	Globals - 脚本在执行期间访问的额外的全局变量。</span><br><span class="line">	Rules - 启用的规则及其各自的错误级别。</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">使用步骤:</span><br><span class="line">	参考:http:&#x2F;&#x2F;eslint.cn&#x2F;docs&#x2F;user-guide&#x2F;getting-started</span><br><span class="line">	</span><br><span class="line">	1、安装全局 eslint 包，或是本地安装</span><br><span class="line">		npm i eslint -g</span><br><span class="line">		注意：如果执行脚本写在package.json中，可以不用全局安装，本地安装即可</span><br><span class="line">		但是如果要生成eslint的配置文件，必须安装全局包</span><br><span class="line">	</span><br><span class="line">	2、在项目根目录创建一个eslint的配置文件，并且进行配置</span><br><span class="line">		使用 &#96;eslint --init&#96; 在项目根目录下创建一个 .eslintrc.js 的配置文件</span><br><span class="line">		</span><br><span class="line">		配置详见:http:&#x2F;&#x2F;eslint.cn&#x2F;docs&#x2F;user-guide&#x2F;configuring</span><br><span class="line">		</span><br><span class="line">	3、在项目根目录创建.eslintignore 忽略掉不需要lint的目录</span><br><span class="line">		</span><br><span class="line">	4、安装项目依赖的包</span><br><span class="line">		npm i eslint babel-eslint -D</span><br><span class="line">		</span><br><span class="line">	5、在package.json中配置scripts来验证</span><br><span class="line">		&quot;lint&quot;:&quot;eslint src&quot;</span><br><span class="line">	</span><br><span class="line">	6、在package.json中配置scripts来修复</span><br><span class="line">		&quot;fix&quot;:&quot;eslint --fix src&quot;</span><br><span class="line">		注意:修复的只能是规则中，带有扳手标识的</span><br><span class="line">		</span><br><span class="line">	7、使用pre-commit第三方包，在提交git前，必须先验证通过</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
+
+<h4 id="ESlint-With-Webpack【以Vue为例】"><a href="#ESlint-With-Webpack【以Vue为例】" class="headerlink" title="ESlint With Webpack【以Vue为例】"></a>ESlint With Webpack【以Vue为例】</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">方式1：</span><br><span class="line">	使用vue的脚手架，直接生成项目，即可完成eslint的配置</span><br><span class="line">		vue init webpack vue_project</span><br><span class="line">		</span><br><span class="line">方式2：</span><br><span class="line">	自己手工搭建Webpack + Vue的项目，然后自己手动的配置eslint</span><br><span class="line">	</span><br><span class="line">	步骤:</span><br><span class="line">		1、切换到项目根目录，使用 &#96;eslint --init&#96; 生成eslint的配置文件</span><br><span class="line">		</span><br><span class="line">		2、安装依赖包，然后在.eslintrc.js配置文件中增加对vue的支持</span><br><span class="line">			npm i eslint babel-eslint eslint-loader eslint-config-standard eslint-plugin-html -D</span><br><span class="line">			</span><br><span class="line">		3、在webpack开发阶段的配置文件中，进行配置</span><br><span class="line">			参考:https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;eslint-loader</span><br><span class="line">            &#123;</span><br><span class="line">                test: &#x2F;\.js$&#x2F;,</span><br><span class="line">                exclude: &#x2F;node_modules&#x2F;,</span><br><span class="line">                loader: &quot;eslint-loader&quot;,</span><br><span class="line">                options: &#123;</span><br><span class="line">                &#x2F;&#x2F; eslint options (if necessary)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">         4、在package.json中增加eslint的script 配置</span><br><span class="line">         	&quot;lint&quot;:&quot;eslint --fix src --ext .js,.vue&quot;</span><br><span class="line">         	</span><br><span class="line">         5、别忘加在项目根目录加上.eslintignore的忽略文件，并写好要忽略掉的目录</span><br><span class="line">         	</span><br></pre></td></tr></table></figure>
+
+<h3 id="StyleLint"><a href="#StyleLint" class="headerlink" title="StyleLint"></a>StyleLint</h3><h4 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">官网:</span><br><span class="line">	https:<span class="comment">//stylelint.io/</span></span><br><span class="line"></span><br><span class="line">基本概念:</span><br><span class="line">    A mighty, modern CSS linter and fixer that helps you avoid errors and enforce       	consistent conventions <span class="keyword">in</span> your stylesheets.</span><br><span class="line">    一款强大的，时髦的css语法检查和纠错工具，它可以帮助开发者在编写样式文件时避免错误，同时它还可以强迫	   开发者们形成统一的开发规范。</span><br><span class="line"></span><br><span class="line">基本使用:</span><br><span class="line">	<span class="number">1</span>、安装所需要的包 stylelint stylelint-config-standard</span><br><span class="line">		npm i stylelint stylelint-config-standard -D</span><br><span class="line"></span><br><span class="line">	<span class="number">2</span>、在package.json中进行配置 stylelint 项目</span><br><span class="line">    	<span class="string">&quot;stylelint&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;extends&quot;</span>: <span class="string">&quot;stylelint-config-standard&quot;</span>, </span><br><span class="line">            <span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;规则名称1&quot;</span>:<span class="string">&quot;规则值1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;规则名称2&quot;</span>:<span class="string">&quot;规则值2&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">	<span class="number">3</span>、写好要测试的样式文件 xxx.css xxx.less xxx.scss</span><br><span class="line">		例如：在src的css文件夹创建样式文件</span><br><span class="line">		</span><br><span class="line">	<span class="number">4</span>、在package.json的scripts中添加 stylelint 代码检查脚本</span><br><span class="line">    	<span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">           <span class="string">&quot;stylelint&quot;</span>: <span class="string">&quot;stylelint src/css/*.* --fix&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">    <span class="number">5</span>、切换到项目根目录，运行 <span class="string">`npm run stylelint`</span>	</span><br></pre></td></tr></table></figure>
+
+<h4 id="Stylelint-With-Webpack【以Vue为例】"><a href="#Stylelint-With-Webpack【以Vue为例】" class="headerlink" title="Stylelint With Webpack【以Vue为例】"></a>Stylelint With Webpack【以Vue为例】</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、先使用webpack + Vue 搭建好项目</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、安装所需要的包 style-loader css-loader less less-loader node-sass sass-loader stylelint stylelint-webpack-plugin stylelint-config-standard</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>、在webpack的配置文件中，写好css、less、scss的loader配置</span><br><span class="line">	参考:https:<span class="comment">//webpack.docschina.org/loaders/</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>、在webpack的配置文件中，写好插件（stylelint-webpack-plugin）的代码</span><br><span class="line">	<span class="keyword">const</span> StyleLintPlugin = <span class="built_in">require</span>(<span class="string">&quot;stylelint-webpack-plugin&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> StyleLintPlugin(&#123;</span><br><span class="line">            context: <span class="string">&quot;src&quot;</span>,</span><br><span class="line">            configFile: path.resolve(__dirname, <span class="string">&#x27;./stylelint.config.js&#x27;</span>),</span><br><span class="line">            files: <span class="string">&#x27;css/*.*&#x27;</span>,</span><br><span class="line">            failOnError: <span class="literal">false</span>,</span><br><span class="line">            quiet: <span class="literal">true</span>,</span><br><span class="line">            fix:<span class="literal">true</span>, <span class="comment">// 修复不规范的样式代码</span></span><br><span class="line">            <span class="comment">//syntax: &#x27;less&#x27;</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>、在项目根目录下创建一个stylelint的配置文件 stylelint.config.js 并写好配置</span><br><span class="line">	<span class="built_in">module</span>.exports = &#123;</span><br><span class="line">        <span class="string">&quot;extends&quot;</span>: <span class="string">&quot;stylelint-config-standard&quot;</span>,</span><br><span class="line">        <span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;color-no-invalid-hex&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="string">&quot;规则名称1&quot;</span>:<span class="string">&quot;规则值1&quot;</span>,</span><br><span class="line">            <span class="string">&quot;规则名称2&quot;</span>:<span class="string">&quot;规则值2&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line"><span class="number">6</span>、在package.json中配置scripts脚本，启动项目</span><br><span class="line">	<span class="string">&quot;dev&quot;</span>: <span class="string">&quot;webpack-dev-server --progress --config webpack.config.dev.js --open --hot&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="number">7</span>、切换到根目录，运行启动脚本 <span class="string">`npm run dev`</span> 即可</span><br></pre></td></tr></table></figure>
+<h3 id="PM2一键部署"><a href="#PM2一键部署" class="headerlink" title="PM2一键部署"></a><a target="_blank" rel="noopener" href="http://pm2.keymetrics.io/">PM2一键部署</a></h3><p>PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。</p>
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><ol>
+<li>无需通过手工或是ftp的方式把本地代码拷贝到服务器上</li>
+<li>无需手工启动或是重启远程服务器的Node服务</li>
+<li>项目的升级及迭代非常方便</li>
+<li>具有负载均衡功能</li>
+</ol>
+<h4 id="pm2"><a href="#pm2" class="headerlink" title="pm2"></a>pm2</h4><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i pm2 -g</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 启动</span><br><span class="line">pm2 start xxx</span><br><span class="line"></span><br><span class="line"># 停止</span><br><span class="line">pm2 stop xxx</span><br><span class="line"></span><br><span class="line"># 重启</span><br><span class="line">pm2 restart xxx</span><br><span class="line"></span><br><span class="line"># 查看列表</span><br><span class="line">pm2 list</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">其它参考:http:<span class="comment">//pm2.keymetrics.io/docs/usage/quick-start/#cheatsheet</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h4><ol>
+<li><p>购买阿里云服务器，生成CentOS7.x的系统</p>
+</li>
+<li><p>在CentOS7.x中安装必要的软件 Node、MongoDB、Apache、MySQL、FTPServer…</p>
+<p>参考:<a target="_blank" rel="noopener" href="https://github.com/Duanzihuang/linuxtutorial">https://github.com/Duanzihuang/linuxtutorial</a></p>
+</li>
+<li><p>本地和服务器安装pm2全局包</p>
+</li>
+<li><p>对阿里云服务器的安全组规则进行配置</p>
+</li>
+<li><p>要把代码发布到在线的Git仓库，比如Github或是码云</p>
+</li>
+<li><p>在自己服务器配置好Git仓库的SSH Key</p>
+</li>
+</ol>
+<h4 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h4><ol>
+<li><p>将本地代码发布到Git远程仓库(Github、码云)</p>
+</li>
+<li><p>在阿里云服务器(CentOS)上生成SSH Key 并且将公钥设置到Github后台，方便拉取代码到CentOS服务器</p>
+<pre><code>https://help.github.com/articles/connecting-to-github-with-ssh/
+   
+https://help.github.com/articles/testing-your-ssh-connection/
+
+注意：还需要在服务器上面安装 git     
+  yum install -y git
+</code></pre>
+</li>
+<li><p>在本地及服务器上面安装 pm2</p>
+<p>本地/服务器安装pm2：    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i pm2 -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在本地项目根目录，使用 pm2 init 生成pm2的配置文件，并且更改相应的配置</p>
+<p>pm2文档地址:<a target="_blank" rel="noopener" href="https://pm2.io/doc/en/runtime/guide/ecosystem-file/">https://pm2.io/doc/en/runtime/guide/ecosystem-file/</a></p>
+<p>主要更改 apps下面的 name、script 等配置项目</p>
+<p>​        deploy 下面的user、host、repo、path</p>
+</li>
+<li><p>切换到本地项目根目录，运行 部署 指令即可</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://pm2.io/doc/en/runtime/guide/easy-deploy-with-ssh/">https://pm2.io/doc/en/runtime/guide/easy-deploy-with-ssh/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 deploy production setup</span><br><span class="line">pm2 deploy production</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码更新&amp;迭代、切换到本地项目根目录，运行 执行 指令即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 deploy production update</span><br><span class="line">注意：在做这个之前，必须先把代码发布到Github</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/06/22/Eslint%20and%20pm2/" data-id="ckq85mqrs00000gio92m2cew6" data-title="Eslint and pm2" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/06/06/Jquery(1)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Jquery</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/06/22/Eslint%20and%20pm2/">Eslint and pm2</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/06/Jquery(1)/">Jquery</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/23/project/">前端工程化之模块化</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/06/CSS/">CSS3</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/21/node/">Node.js 子进程学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
